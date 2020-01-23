@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "types": [
+      "node"
+    ],
+    "skipLibCheck": true
+  },
+  "skipLibCheck": true,
+  "include": [
+    "src/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/node_modules/*"
+  ]
+}

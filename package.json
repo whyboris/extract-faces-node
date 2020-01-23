@@ -1,0 +1,17 @@
+{
+  "name": "extract-faces-node",
+  "version": "0.1.0",
+  "description": "Extract all faces found in an image into a new image",
+  "main": "face-api.js",
+  "scripts": {
+    "start": "tsc && node src/pipeline.js"
+  },
+  "author": "Boris Yakubchik",
+  "license": "MIT",
+  "dependencies": {
+    "@tensorflow/tfjs-node": "1.4.0",
+    "canvas": "2.6.1",
+    "face-api.js": "0.22.0",
+    "sharp": "0.24.0"
+  }
+}
