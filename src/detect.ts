@@ -16,11 +16,9 @@ export async function loadModel() {
 
 /**
  * Use face-api.js to detect a rectangle around the face
- * @param imageWidth
- * @param sizes
  * @param imgBuffer
  */
-export async function findTheFaces(imageWidth: number, sizes: InputMeta, imgBuffer: Buffer): Promise<FullDetection[]> {
+export async function findTheFaces(imgBuffer: Buffer): Promise<FullDetection[]> {
 
   const imgTensor = tf.node.decodeJpeg(imgBuffer)
 
