@@ -33,7 +33,7 @@ async function runEverything(inputFile: string, numOfScreens: number, outputFile
 
     const imgBuffer: Buffer = await getSubImageBuffer(i, sizes.eachSSwidth, sizes, inputFile);
 
-    const detections: FullDetection[] = await findTheFaces(sizes.eachSSwidth, sizes, imgBuffer);
+    const detections: FullDetection[] = await findTheFaces(imgBuffer);
 
     // warning -- getCroppedImageBuffers returns an array (possibly empty)
     // so use `...` spread operator - it will not add any elements if incoming array is empty
