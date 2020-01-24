@@ -1,12 +1,6 @@
 const tf = require('@tensorflow/tfjs-node');
 
-const canvas = require('canvas');
 const faceapi = require('face-api.js');
-
-// @ts-ignore
-const { Canvas, Image } = canvas;
-
-faceapi.env.monkeyPatch({ Canvas, Image });
 
 import { InputMeta, FullDetection } from "./interfaces";
 
@@ -28,15 +22,11 @@ export async function loadModel() {
  */
 export async function findTheFaces(imageWidth: number, sizes: InputMeta, imgBuffer: Buffer): Promise<FullDetection[]> {
 
-  const imgElement = new Image();
-
-  imgElement.width = imageWidth;
-  imgElement.height = sizes.height;
-  imgElement.src = imgBuffer;
+  const imgTensor = tf.node.decodeJpeg(imgBuffer)
 
   // const detections = await faceapi.detectAllFaces(imgElement);
   // const detections = await faceapi.detectAllFaces(imgElement, new faceapi.TinyFaceDetectorOptions());
-  const detections = await faceapi.detectAllFaces(imgElement).withAgeAndGender(); // changes output format a bit
+  const detections = await faceapi.detectAllFaces(imgTensor).withAgeAndGender(); // changes output format a bit
 
   // console.log(detections);
 
