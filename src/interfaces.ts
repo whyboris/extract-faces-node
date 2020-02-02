@@ -11,10 +11,15 @@ export interface InputMeta {
   eachSSwidth: number,
 }
 
+export interface BufferAndHeight {
+  buffer: Buffer;
+  height: number;
+}
+
 // Face API ===============================
 
 export interface FullDetection {
-  descriptor: number[];
+  descriptor: number[]; // vector with 128 numbers
   detection: FaceDetection;
   gender: Gender;
 }

@@ -2,7 +2,7 @@ const sharp = require('sharp');
 
 import { getBetterBox } from './support';
 
-import { InputMeta, FullDetection, FaceBox, Gender } from './interfaces';
+import { InputMeta, FullDetection, FaceBox, Gender, BufferAndHeight } from './interfaces';
 
 // ====== METHODS ==================================================================================
 
@@ -75,21 +75,20 @@ export async function getFaceCropBuffer(imgBuffer: Buffer, match: FaceBox, sizes
  *
  * @returns array of buffers !!!
  */
-export async function getCroppedImageBuffers(matches: FullDetection[], imgBuffer: Buffer, sizes: InputMeta, gender: Gender) {
+export async function getCroppedImageBuffers(matches: FullDetection[], imgBuffer: Buffer, sizes: InputMeta): Promise<BufferAndHeight[]> {
 
   console.log('found', matches.length, 'faces');
 
-  const all_faces = [];
+  const all_faces: BufferAndHeight[] = [];
 
   for (let i = 0; i < matches.length; i++) {
     const vector: number[] = matches[i].descriptor;
-    console.log(vector);
+    console.log((<any>matches[i]).detection._score);
+    // console.log(vector);
+    console.log('yo!!!');
     const box: FaceBox = matches[i].detection._box;
-    const sex: Gender = matches[i].gender;
-    if (sex === gender) {
-      const croppedBuffer = await getFaceCropBuffer(imgBuffer, box, sizes);
-      all_faces.push(croppedBuffer);
-    }
+    const croppedBuffer = await getFaceCropBuffer(imgBuffer, box, sizes);
+    all_faces.push({ buffer: croppedBuffer, height: box._height });
   }
 
   return all_faces;
@@ -102,7 +101,7 @@ export async function getCroppedImageBuffers(matches: FullDetection[], imgBuffer
  * @param outputFile
  * @param sizes
  */
-export function saveFinalOutput(allFaceBuffers: Buffer[], outputFile: string, sizes: InputMeta) {
+export function saveFinalOutput(allFaceBuffers: BufferAndHeight[], outputFile: string, sizes: InputMeta) {
 
   console.log('Total of', allFaceBuffers.length, 'faces found!');
 
@@ -112,7 +111,7 @@ export function saveFinalOutput(allFaceBuffers: Buffer[], outputFile: string, si
 
   allFaceBuffers.forEach((face) => {
     composeParams.push({
-      input: allFaceBuffers[tracker],
+      input: allFaceBuffers[tracker].buffer,
       top: 0,
       left: tracker * sizes.eachSSwidth / 2,
     })
@@ -124,7 +123,7 @@ export function saveFinalOutput(allFaceBuffers: Buffer[], outputFile: string, si
       width: tracker * sizes.eachSSwidth / 2,
       height: sizes.height,
       channels: 3,
-      background: { r: 0, g: 0, b: 50 }
+      background: { r: 0, g: 0, b: 0 }
     }
   })
   .composite(composeParams)

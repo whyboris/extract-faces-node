@@ -32,12 +32,13 @@ export function getBetterBox(box, sizes: InputMeta): CropBox {
 /**
  * Only return detections that fit criteria
  *  - remove any gender if needed
- *  - remove any faces which are too small          // TODO -- add this condition
+ *  - remove any faces which are too small
  * @param detections
  * @param sex
+ * @param minHeight - the face box must be at least this tall
  */
-export function filterFaces(detections: FullDetection[], sex: Gender): FullDetection[] {
+export function filterFaces(detections: FullDetection[], sex: Gender, minHeight: number): FullDetection[] {
   return detections.filter((detection: FullDetection) => {
-    return detection.gender === sex;
+    return detection.gender === sex && detection.detection._box._height > minHeight;
   });
 }
