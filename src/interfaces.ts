@@ -14,6 +14,7 @@ export interface InputMeta {
 // Face API ===============================
 
 export interface FullDetection {
+  descriptor: number[];
   detection: FaceDetection;
   gender: Gender;
 }

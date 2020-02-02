@@ -1,4 +1,4 @@
-import { CropBox, InputMeta } from "./interfaces";
+import { CropBox, InputMeta, FullDetection, Gender } from "./interfaces";
 
 
 /**
@@ -27,4 +27,17 @@ export function getBetterBox(box, sizes: InputMeta): CropBox {
     height: new_height,
   }
 
+}
+
+/**
+ * Only return detections that fit criteria
+ *  - remove any gender if needed
+ *  - remove any faces which are too small          // TODO -- add this condition
+ * @param detections
+ * @param sex
+ */
+export function filterFaces(detections: FullDetection[], sex: Gender): FullDetection[] {
+  return detections.filter((detection: FullDetection) => {
+    return detection.gender === sex;
+  });
 }

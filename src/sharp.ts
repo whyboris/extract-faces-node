@@ -82,6 +82,8 @@ export async function getCroppedImageBuffers(matches: FullDetection[], imgBuffer
   const all_faces = [];
 
   for (let i = 0; i < matches.length; i++) {
+    const vector: number[] = matches[i].descriptor;
+    console.log(vector);
     const box: FaceBox = matches[i].detection._box;
     const sex: Gender = matches[i].gender;
     if (sex === gender) {

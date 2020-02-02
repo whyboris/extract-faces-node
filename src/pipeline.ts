@@ -1,6 +1,7 @@
 import { loadModel, findTheFaces } from './detect';
 import { getImageSizes, getSubImageBuffer, getCroppedImageBuffers, saveFinalOutput } from './sharp';
 import { InputMeta, FullDetection, Gender } from './interfaces';
+import { filterFaces } from './support';
 
 // VARIABLES for now ===============================================================================
 
@@ -33,16 +34,18 @@ async function runEverything(inputFile: string, numOfScreens: number, outputFile
 
     const imgBuffer: Buffer = await getSubImageBuffer(i, sizes.eachSSwidth, sizes, inputFile);
 
-    const detections: FullDetection[] = await findTheFaces(imgBuffer);
+    const allDetections: FullDetection[] = await findTheFaces(imgBuffer);
+
+    const filteredDetections: FullDetection[] = filterFaces(allDetections, gender);
 
     // warning -- getCroppedImageBuffers returns an array (possibly empty)
     // so use `...` spread operator - it will not add any elements if incoming array is empty
-    all_faces.push(...(await getCroppedImageBuffers(detections, imgBuffer, sizes, gender)));
+    all_faces.push(...(await getCroppedImageBuffers(filteredDetections, imgBuffer, sizes, gender)));
 
   }
 
   if (all_faces.length) {
-    saveFinalOutput(all_faces, outputFile, sizes);
+    // saveFinalOutput(all_faces, outputFile, sizes);
     console.log('File saved:', outputFile);
   } else {
     console.log('no faces found!');
