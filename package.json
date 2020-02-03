@@ -4,7 +4,7 @@
   "description": "Extract all faces found in an image into a new image",
   "main": "face-api.js",
   "scripts": {
-    "start": "tsc && ts-node src/pipeline.ts"
+    "start": "tsc && ts-node src/index.ts"
   },
   "author": "Boris Yakubchik",
   "license": "MIT",

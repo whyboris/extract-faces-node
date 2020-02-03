@@ -5,19 +5,6 @@ import { getImageSizes, getSubImageBuffer, getCroppedImageBuffers, saveFinalOutp
 import { InputMeta, FullDetection, Gender, BufferAndHeight } from './interfaces';
 import { filterFaces } from './support';
 
-// VARIABLES for now ===============================================================================
-
-const RELATIVE_IMAGE_PATH = './images2/img2.jpg';
-const CURRENT_NUMBER_OF_SCREENS = 20;  // the number of chunks the image is split into (20 screenshots for example) // HARDCODED FOR NOW
-const OUTPUT_FILE_NAME_LARGEST = './output/largest.jpg';
-const OUTPUT_FILE_NAME_STRIP = './output/facestrip.jpg';
-const GENDER = 'female';
-const MIN_FACE_HEIGHT = 100;
-
-runEverything(RELATIVE_IMAGE_PATH, CURRENT_NUMBER_OF_SCREENS, OUTPUT_FILE_NAME_LARGEST, OUTPUT_FILE_NAME_STRIP, GENDER, MIN_FACE_HEIGHT);
-
-// ==== PIPELINE ===================================================================================
-
 /**
  * Full pipeline process
  * @param inputFile  - relative path to INPUT image
@@ -27,7 +14,7 @@ runEverything(RELATIVE_IMAGE_PATH, CURRENT_NUMBER_OF_SCREENS, OUTPUT_FILE_NAME_L
  * @param gender
  * @param minHeight
  */
-async function runEverything(
+export async function runEverything(
   inputFile: string,
   numOfScreens: number,
   outputFile1: string,
