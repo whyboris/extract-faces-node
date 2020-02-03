@@ -84,7 +84,7 @@ export async function getCroppedImageBuffers(matches: FullDetection[], imgBuffer
   for (let i = 0; i < matches.length; i++) {
 
     // console.log((<any>matches[i]).detection._score);
-    console.log('yo!!!');
+    // console.log('yo!!!');
 
     const vector: number[] = matches[i].descriptor;
 

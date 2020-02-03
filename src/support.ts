@@ -47,8 +47,11 @@ export function filterFaces(detections: FullDetection[], sex: Gender, minHeight:
 
 
 export function saveVectors(detections: BufferAndHeight[]): void {
-  const data = JSON.stringify(detections.map((element: BufferAndHeight) => {
-    return element.vector;
-  }));
-  fs.writeFileSync('./output/vectors.json', data);
+  const data = detections.map((element: BufferAndHeight) => {
+    return Array.prototype.slice.call(element.vector); // convert float32Array to regular array for JSON
+  });
+
+  const write: string = JSON.stringify(data);
+
+  fs.writeFileSync('./output/vectors.json', write);
 }
