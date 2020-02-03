@@ -82,13 +82,17 @@ export async function getCroppedImageBuffers(matches: FullDetection[], imgBuffer
   const all_faces: BufferAndHeight[] = [];
 
   for (let i = 0; i < matches.length; i++) {
-    const vector: number[] = matches[i].descriptor;
-    console.log((<any>matches[i]).detection._score);
-    // console.log(vector);
+
+    // console.log((<any>matches[i]).detection._score);
     console.log('yo!!!');
+
+    const vector: number[] = matches[i].descriptor;
+
     const box: FaceBox = matches[i].detection._box;
     const croppedBuffer = await getFaceCropBuffer(imgBuffer, box, sizes);
-    all_faces.push({ buffer: croppedBuffer, height: box._height });
+
+    all_faces.push({ buffer: croppedBuffer, height: box._height, vector: vector });
+
   }
 
   return all_faces;

@@ -14,6 +14,7 @@ export interface InputMeta {
 export interface BufferAndHeight {
   buffer: Buffer;
   height: number;
+  vector: number[]; // vector with 128 numbers
 }
 
 // Face API ===============================

@@ -3,7 +3,7 @@ require('pretty-error').start();
 import { loadModel, findTheFaces } from './detect';
 import { getImageSizes, getSubImageBuffer, getCroppedImageBuffers, saveFinalOutput } from './sharp';
 import { InputMeta, FullDetection, Gender, BufferAndHeight } from './interfaces';
-import { filterFaces } from './support';
+import { filterFaces, saveVectors } from './support';
 
 /**
  * Full pipeline process
@@ -50,6 +50,8 @@ export async function runEverything(
     const largestFace = all_faces.reduce((a, b) => {
       return a.height > b.height ? a : b;
     });
+
+    saveVectors(all_faces);
 
     saveFinalOutput([largestFace], outputFile1, sizes);
     console.log('Largest:', outputFile1);

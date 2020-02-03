@@ -25,8 +25,8 @@ export async function findTheFaces(imgBuffer: Buffer): Promise<FullDetection[]> 
 
   const imgTensor = tf.node.decodeJpeg(imgBuffer)
 
-  const detections: FullDetection[] = await faceapi.detectAllFaces(imgTensor).withAgeAndGender();
-  // const detections: FullDetection[] = await faceapi.detectAllFaces(imgTensor).withFaceLandmarks().withAgeAndGender().withFaceDescriptors();
+  // const detections: FullDetection[] = await faceapi.detectAllFaces(imgTensor).withAgeAndGender();
+  const detections: FullDetection[] = await faceapi.detectAllFaces(imgTensor).withFaceLandmarks().withAgeAndGender().withFaceDescriptors();
 
   // console.log(detections);
 
