@@ -53,10 +53,10 @@ export async function runEverything(
 
     saveVectors(all_faces);
 
-    // saveFinalOutput([largestFace], outputFile1, sizes);
+    saveFinalOutput([largestFace], outputFile1, sizes);
     // console.log('Largest:', outputFile1);
 
-    // saveFinalOutput(all_faces, outputFile2, sizes);
+    saveFinalOutput(all_faces, outputFile2, sizes);
     // console.log('Facestrip:', outputFile2);
 
   } else {
