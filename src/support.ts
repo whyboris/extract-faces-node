@@ -1,4 +1,6 @@
-import { CropBox, InputMeta } from "./interfaces";
+const fs = require('fs');
+
+import { CropBox, InputMeta, FullDetection, Gender, BufferAndHeight } from "./interfaces";
 
 
 /**
@@ -27,4 +29,29 @@ export function getBetterBox(box, sizes: InputMeta): CropBox {
     height: new_height,
   }
 
+}
+
+/**
+ * Only return detections that fit criteria
+ *  - remove any gender if needed
+ *  - remove any faces which are too small
+ * @param detections
+ * @param sex
+ * @param minHeight - the face box must be at least this tall
+ */
+export function filterFaces(detections: FullDetection[], sex: Gender, minHeight: number): FullDetection[] {
+  return detections.filter((detection: FullDetection) => {
+    return detection.gender === sex && detection.detection._box._height > minHeight;
+  });
+}
+
+
+export function saveVectors(detections: BufferAndHeight[]): void {
+  const data = detections.map((element: BufferAndHeight) => {
+    return Array.prototype.slice.call(element.vector); // convert float32Array to regular array for JSON
+  });
+
+  const write: string = JSON.stringify(data);
+
+  fs.writeFileSync('./output/vectors.json', write);
 }
