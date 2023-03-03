@@ -4,13 +4,20 @@
   "description": "Extract all faces found in an image into a new image",
   "main": "face-api.js",
   "scripts": {
-    "start": "tsc && node src/pipeline.js"
+    "start": "tsc && ts-node src/index.ts",
+    "test": "ts-node src/vectors.ts"
   },
   "author": "Boris Yakubchik",
   "license": "MIT",
   "dependencies": {
-    "@tensorflow/tfjs-node": "1.4.0",
-    "face-api.js": "0.22.0",
+    "@tensorflow/tfjs-node": "1.5.2",
+    "face-api.js": "0.22.1",
     "sharp": "0.24.0"
+  },
+  "devDependencies": {
+    "pretty-error": "2.1.1",
+    "source-map-support": "0.5.16",
+    "ts-node": "8.6.2",
+    "typescript": "3.7.5"
   }
 }
